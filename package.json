@@ -3,7 +3,7 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
-
+  "homepage": "https://aqshalhadi.github.io/portofolio/",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
@@ -11,7 +11,6 @@
     "preview": "vite preview",
     "deploy": "gh-pages -d dist"
   },
-
   "dependencies": {
     "@emotion/react": "^11.13.3",
     "@emotion/styled": "^11.13.0",
@@ -48,7 +47,6 @@
     "tailwind-merge": "^2.5.5",
     "typewriter-effect": "^2.21.0"
   },
-
   "devDependencies": {
     "@eslint/js": "^9.13.0",
     "@types/react": "^18.3.12",
