@@ -7,8 +7,7 @@ export default function NotFoundPage() {
   };
 
   const handleGoHome = () => {
-    // In a real app, you would use your router's navigation
-    window.location.href = '/';
+    window.location.href = '/portfolio/';
   };
 
   return (

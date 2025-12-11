@@ -1,7 +1,7 @@
 export const projects = [
   {
     id: 1,
-    Img: "/Photo.jpg",
+    Img: "/portfolio/Photo.jpg",
     Title: "Sistem Lost & Found",
     Description: "Aplikasi web untuk laporan barang hilang dan ditemukan.",
     Link: "https://contoh-demo.com",
