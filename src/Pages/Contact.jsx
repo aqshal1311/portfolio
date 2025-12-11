@@ -16,15 +16,17 @@ const ContactPage = () => {
 
   const [isSubmitting, setIsSubmitting] = useState(false);
 
+  // URL FormSubmit yang benar
+  const formSubmitUrl = "https://formsubmit.co/ajax/aqshalhadi27@gmail.com";
+
   useEffect(() => {
     AOS.init({ once: false });
   }, []);
 
   const handleChange = (e) => {
-    const { name, value } = e.target;
     setFormData((prev) => ({
       ...prev,
-      [name]: value,
+      [e.target.name]: e.target.value,
     }));
   };
 
@@ -34,32 +36,32 @@ const ContactPage = () => {
 
     Swal.fire({
       title: "Mengirim Pesan...",
-      html: "Harap tunggu selagi kami mengirim pesan Anda",
+      html: "Mohon tunggu sebentar",
       allowOutsideClick: false,
       didOpen: () => Swal.showLoading(),
     });
 
     try {
-      const ajaxUrl = "https://formsubmit.co/ajax/aqshalhadi27@gmail.com";
-
       const payload = {
         name: formData.name,
         email: formData.email,
         message: formData.message,
-        _subject: "Pesan Baru dari Website Portfolio",
+        _subject: "Pesan Baru Dari Portfolio",
         _template: "table",
         _captcha: "false",
+
+        // redirect supaya GitHub Pages tidak error setelah submit
+        _next: "https://aqshal1311.github.io/portfolio/#Contact",
       };
 
-      const res = await axios.post(ajaxUrl, payload, {
+      const res = await axios.post(formSubmitUrl, payload, {
         headers: { "Content-Type": "application/json" },
-        timeout: 15000,
       });
 
       if (res?.data?.success || res?.data?.status === "success") {
         Swal.fire({
           title: "Berhasil!",
-          text: "Pesan Anda telah berhasil terkirim!",
+          text: "Pesan Anda berhasil dikirim.",
           icon: "success",
           confirmButtonColor: "#6366f1",
           timer: 2000,
@@ -68,16 +70,17 @@ const ContactPage = () => {
 
         setFormData({ name: "", email: "", message: "" });
       } else {
-        throw new Error("Unexpected FormSubmit response");
+        throw new Error("Respon FormSubmit tidak valid");
       }
     } catch (error) {
       Swal.fire({
-        title: "Gagal Mengirim",
+        title: "Gagal Mengirim!",
         text:
-          "Terjadi masalah saat mengirim pesan. Jika ini pertama kali Anda menggunakan FormSubmit, cek email verifikasi di inbox/spam. Pastikan koneksi stabil lalu coba lagi.",
+          "Kemungkinan Anda **belum aktivasi FormSubmit untuk domain GitHub Pages**. Cek Inbox/Spam Gmail Anda untuk email aktivasi FormSubmit.",
         icon: "error",
         confirmButtonColor: "#6366f1",
       });
+
       console.error("FormSubmit error:", error);
     } finally {
       setIsSubmitting(false);
@@ -100,13 +103,13 @@ const ContactPage = () => {
           data-aos-duration="1100"
           className="text-slate-400 max-w-2xl mx-auto text-sm md:text-base mt-2"
         >
-          Punya pertanyaan? Kirimi saya pesan, dan saya akan segera membalasnya.
+          Punya pertanyaan? Kirimi saya pesan dan saya akan segera membalasnya.
         </p>
       </div>
 
       <div className="h-auto py-10 flex items-center justify-center">
         <div className="container grid grid-cols-1 lg:grid-cols-[45%_55%] gap-12">
-          {/* FORM SECTION */}
+          {/* ========== FORM KONTAK ========== */}
           <div className="bg-white/5 backdrop-blur-xl rounded-3xl shadow-2xl p-5 sm:p-10">
             <div className="flex justify-between items-start mb-8">
               <div>
@@ -114,7 +117,7 @@ const ContactPage = () => {
                   Hubungi
                 </h2>
                 <p className="text-gray-400">
-                  Ada yang ingin didiskusikan? Kirim saya pesan dan mari kita bicara.
+                  Ada yang ingin dibahas? Kirim pesan Anda.
                 </p>
               </div>
               <Share2 className="w-10 h-10 text-[#6366f1] opacity-50" />
@@ -183,7 +186,7 @@ const ContactPage = () => {
             </div>
           </div>
 
-          {/* KOMENTAR */}
+          {/* ========== KOMENTAR ========== */}
           <div className="bg-white/5 backdrop-blur-xl rounded-3xl p-5 sm:p-10 shadow-2xl">
             <Komentar />
           </div>
